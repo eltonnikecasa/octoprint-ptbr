@@ -1,1 +1,10 @@
-*.mo
+# Cache / sistema
+__pycache__/
+*.pyc
+
+# Linux / editor
+*~
+*.swp
+
+# NÃO ignorar .mo (IMPORTANTE)
+# *.mo  ← não colocar isso
