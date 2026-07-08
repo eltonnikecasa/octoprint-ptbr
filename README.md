@@ -2,124 +2,55 @@
 
 Tradução em Português do Brasil para o OctoPrint.
 
+---
+
 ## Compatibilidade
 
-- Testado em: **OctoPrint 1.11.7**
-- Compatível com instalações utilizando **venv (Virtual Environment)**
+- Testado em **OctoPrint 1.11.7**
+- Compatível com instalações em **Virtual Environment (venv)**
 - Compatível com instalações como **serviço systemd**
-- Compatível com instalações utilizando o usuário **octoprint**
+- Compatível com Debian e derivados
 
 ---
 
 # Instalação
 
-## 1. Baixar o repositório
+Clone o repositório:
 
 ```bash
 git clone https://github.com/eltonnikecasa/octoprint-ptbr.git
 cd octoprint-ptbr
 ```
 
----
-
-## 2. Descobrir onde está o diretório do OctoPrint
-
-### Instalação padrão (usuário atual)
-
-Verifique se existe:
+Dê permissão ao instalador:
 
 ```bash
-ls ~/.octoprint
+chmod +x install.sh
 ```
 
-Caso exista, utilize este diretório.
-
----
-
-### Instalação como serviço (Recomendado)
-
-Verifique:
+Execute:
 
 ```bash
-sudo -u octoprint find /home/octoprint -name config.yaml
+sudo ./install.sh
 ```
 
-O retorno normalmente será:
+O instalador irá automaticamente:
 
-```text
-/home/octoprint/.octoprint/config.yaml
-```
-
-Neste caso o diretório correto será:
-
-```text
-/home/octoprint/.octoprint
-```
+- Localizar a instalação do OctoPrint
+- Detectar o diretório `.octoprint`
+- Criar a estrutura de traduções
+- Copiar os arquivos
+- Compilar `messages.po`
+- Gerar `messages.mo`
+- Corrigir as permissões
+- Reiniciar o serviço do OctoPrint
+- Exibir uma mensagem de sucesso
 
 ---
 
-## 3. Copiar os arquivos de tradução
+# Ativando o idioma
 
-### Instalação padrão
-
-```bash
-mkdir -p ~/.octoprint/translations/pt_BR/LC_MESSAGES
-
-cp pt_BR/LC_MESSAGES/messages.po \
-~/.octoprint/translations/pt_BR/LC_MESSAGES/
-```
-
----
-
-### Instalação como serviço (systemd)
-
-```bash
-sudo mkdir -p /home/octoprint/.octoprint/translations/pt_BR/LC_MESSAGES
-
-sudo cp pt_BR/LC_MESSAGES/messages.po \
-/home/octoprint/.octoprint/translations/pt_BR/LC_MESSAGES/
-
-sudo chown -R octoprint:octoprint \
-/home/octoprint/.octoprint/translations
-```
-
----
-
-## 4. Compilar a tradução
-
-### Instalação padrão
-
-```bash
-cd ~/.octoprint/translations/pt_BR/LC_MESSAGES
-
-msgfmt -c messages.po -o messages.mo
-```
-
----
-
-### Instalação como serviço
-
-```bash
-cd /home/octoprint/.octoprint/translations/pt_BR/LC_MESSAGES
-
-msgfmt -c messages.po -o messages.mo
-
-sudo chown octoprint:octoprint messages.mo
-```
-
----
-
-## 5. Reiniciar o OctoPrint
-
-```bash
-sudo systemctl restart octoprint
-```
-
----
-
-## 6. Ativar o idioma
-
-Abra o navegador:
+No OctoPrint:
 
 ```
 Settings
@@ -133,25 +64,11 @@ Portuguese (Brazil)
 
 ---
 
-# Estrutura do Projeto
+# Atualizando a tradução
 
-```
-octoprint-ptbr/
-└── pt_BR/
-    └── LC_MESSAGES/
-        ├── messages.po
-        └── README.md
-```
-
-Após a compilação:
-
-```
-/home/octoprint/.octoprint/
-└── translations/
-    └── pt_BR/
-        └── LC_MESSAGES/
-            ├── messages.po
-            └── messages.mo
+```bash
+git pull
+sudo ./install.sh
 ```
 
 ---
@@ -164,7 +81,7 @@ Editar:
 nano pt_BR/LC_MESSAGES/messages.po
 ```
 
-Compilar:
+Compilar manualmente:
 
 ```bash
 msgfmt -c pt_BR/LC_MESSAGES/messages.po \
@@ -173,87 +90,29 @@ msgfmt -c pt_BR/LC_MESSAGES/messages.po \
 
 ---
 
-# Validação
+# Estrutura do projeto
 
-Sempre valide antes de instalar:
-
-```bash
-msgfmt -c pt_BR/LC_MESSAGES/messages.po
 ```
+octoprint-ptbr/
 
-Se não houver saída, o arquivo está correto.
-
----
-
-# Problemas conhecidos
-
-## O idioma não aparece
-
-Verifique se a tradução foi instalada no diretório correto.
-
-Instalação padrão:
-
-```text
-~/.octoprint/translations/
-```
-
-Instalação como serviço:
-
-```text
-/home/octoprint/.octoprint/translations/
+├── install.sh
+├── README.md
+└── pt_BR
+    └── LC_MESSAGES
+        └── messages.po
 ```
 
 ---
 
-## Safe Mode
+# Problemas
 
-Se o OctoPrint iniciar em Safe Mode:
-
-Verifique a tradução:
+Caso ocorra algum erro durante a instalação:
 
 ```bash
-msgfmt -c messages.po
+sudo ./install.sh
 ```
 
-Caso exista erro, remova temporariamente:
-
-Instalação padrão:
-
-```bash
-rm ~/.octoprint/translations/pt_BR/LC_MESSAGES/messages.mo
-```
-
-Instalação como serviço:
-
-```bash
-sudo rm /home/octoprint/.octoprint/translations/pt_BR/LC_MESSAGES/messages.mo
-```
-
-Reinicie:
-
-```bash
-sudo systemctl restart octoprint
-```
-
----
-
-## Verificar onde o OctoPrint está instalado
-
-```bash
-systemctl status octoprint
-```
-
-Você verá algo semelhante a:
-
-```
-ExecStart=/home/octoprint/venv/bin/octoprint serve
-```
-
-Para localizar o diretório de configuração:
-
-```bash
-sudo -u octoprint find /home/octoprint -name config.yaml
-```
+O instalador informará em qual etapa ocorreu o problema.
 
 ---
 
