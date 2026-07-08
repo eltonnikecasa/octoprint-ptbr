@@ -25,11 +25,7 @@ Clone o repositório:
 ```bash
 git clone https://github.com/eltonnikecasa/octoprint-ptbr.git
 cd octoprint-ptbr
-```
-
-Execute o instalador:
-
-```bash
+chmod +x install.sh
 sudo ./install.sh
 ```
 
