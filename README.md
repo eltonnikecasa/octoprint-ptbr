@@ -1,15 +1,20 @@
-# OctoPrint pt_BR Translation (Brazilian Portuguese)
+# 🇧🇷 OctoPrint PT-BR
 
-Tradução em Português do Brasil para o OctoPrint.
+[![OctoPrint](https://img.shields.io/badge/OctoPrint-1.11.7+-blue.svg)](https://octoprint.org/)
+[![Platform](https://img.shields.io/badge/Platform-Debian-red.svg)]()
+[![Language](https://img.shields.io/badge/Language-Português%20(Brasil)-green.svg)]()
+[![License](https://img.shields.io/badge/License-AGPL%20v3-orange.svg)]()
+
+Tradução em Português do Brasil para o **OctoPrint**.
 
 ---
 
 ## Compatibilidade
 
-- Testado em **OctoPrint 1.11.7**
-- Compatível com instalações em **Virtual Environment (venv)**
-- Compatível com instalações como **serviço systemd**
-- Compatível com Debian e derivados
+- ✔ OctoPrint **1.11.7** ou superior
+- ✔ Instalações utilizando **Virtual Environment (venv)**
+- ✔ Instalações como **serviço systemd**
+- ✔ Debian e derivados
 
 ---
 
@@ -22,106 +27,156 @@ git clone https://github.com/eltonnikecasa/octoprint-ptbr.git
 cd octoprint-ptbr
 ```
 
-Dê permissão ao instalador:
-
-```bash
-chmod +x install.sh
-```
-
-Execute:
+Execute o instalador:
 
 ```bash
 sudo ./install.sh
 ```
 
-O instalador irá automaticamente:
+---
 
-- Localizar a instalação do OctoPrint
-- Detectar o diretório `.octoprint`
-- Criar a estrutura de traduções
-- Copiar os arquivos
-- Compilar `messages.po`
-- Gerar `messages.mo`
-- Corrigir as permissões
-- Reiniciar o serviço do OctoPrint
-- Exibir uma mensagem de sucesso
+## O instalador faz tudo automaticamente
+
+- Detecta a instalação do OctoPrint
+- Detecta o usuário do serviço
+- Localiza automaticamente o diretório `.octoprint`
+- Instala o pacote **gettext** (caso necessário)
+- Cria backup da tradução anterior
+- Copia os arquivos de tradução
+- Compila o arquivo `messages.po`
+- Gera automaticamente o `messages.mo`
+- Corrige permissões
+- Reinicia o serviço do OctoPrint
+
+Não é necessário configurar caminhos manualmente.
 
 ---
 
 # Ativando o idioma
 
-No OctoPrint:
+Após a instalação:
 
 ```
 Settings
-    ↓
-Appearance
-    ↓
-Language
-    ↓
-Portuguese (Brazil)
+    → Appearance
+        → Language
+            → Portuguese (Brazil)
+```
+
+Depois atualize a página utilizando:
+
+```
+CTRL + F5
 ```
 
 ---
 
-# Atualizando a tradução
+# Atualização
+
+Para atualizar a tradução:
 
 ```bash
+cd octoprint-ptbr
 git pull
 sudo ./install.sh
 ```
+
+O instalador substituirá automaticamente a tradução existente e manterá um backup da versão anterior.
 
 ---
 
 # Desenvolvimento
 
-Editar:
+Editar a tradução:
 
 ```bash
 nano pt_BR/LC_MESSAGES/messages.po
 ```
 
+Validar:
+
+```bash
+msgfmt -c pt_BR/LC_MESSAGES/messages.po
+```
+
 Compilar manualmente:
 
 ```bash
-msgfmt -c pt_BR/LC_MESSAGES/messages.po \
+msgfmt \
+pt_BR/LC_MESSAGES/messages.po \
 -o pt_BR/LC_MESSAGES/messages.mo
 ```
 
 ---
 
-# Estrutura do projeto
+# Estrutura do Projeto
 
 ```
 octoprint-ptbr/
 
 ├── install.sh
 ├── README.md
+│
 └── pt_BR
     └── LC_MESSAGES
-        └── messages.po
+        ├── messages.po
+        └── messages.mo
 ```
 
 ---
 
-# Problemas
+# Backup
 
-Caso ocorra algum erro durante a instalação:
+Sempre que uma tradução existente for atualizada, o instalador cria automaticamente um backup da versão anterior.
+
+---
+
+# Solução de Problemas
+
+Caso o idioma não apareça:
+
+- Atualize a página (`CTRL + F5`)
+- Limpe o cache do navegador
+- Reinicie o OctoPrint
+
+Verifique o status do serviço:
 
 ```bash
-sudo ./install.sh
+systemctl status octoprint
 ```
 
-O instalador informará em qual etapa ocorreu o problema.
+Validar a tradução:
+
+```bash
+msgfmt -c pt_BR/LC_MESSAGES/messages.po
+```
+
+---
+
+# Requisitos
+
+- Debian ou distribuição baseada em Debian
+- OctoPrint instalado
+- Permissão de administrador (`sudo`)
+
+Todos os demais requisitos são tratados automaticamente pelo instalador.
 
 ---
 
 # Licença
 
-Mesmo licenciamento do projeto OctoPrint.
+Este projeto utiliza o mesmo licenciamento do **OctoPrint**.
 
 ---
 
 # Autor
 
 **Elton Nike Casa**
+
+GitHub:
+
+https://github.com/eltonnikecasa
+
+---
+
+⭐ Caso esta tradução tenha sido útil, considere dar uma **estrela** no repositório.
